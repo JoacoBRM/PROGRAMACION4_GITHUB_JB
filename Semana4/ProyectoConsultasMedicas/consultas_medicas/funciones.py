@@ -19,11 +19,11 @@ def registrar_paciente():
         print("ERROR, cédula repetida!")
         cedula = validar_cedula()
     
-    # Captura de la edad, validando que sea un número positivo
+    # Captura de la edad, validando que sea un número positivo y menor a 120
     while True:
         try:
             edad = int(input("Edad: "))
-            if edad < 0:
+            if edad < 0 or edad > 120:
                 print("ERROR, no puede ingresar una edad negativa!")
                 continue
             break
@@ -68,9 +68,12 @@ def registrar_consulta():
             while True:
                 try:
                     fecha = input("Fecha (DD/MM/AAAA): ")
+                    
                     fecha_valida = datetime.strptime(fecha, "%d/%m/%Y")  # Intenta convertir la fecha
                     if fecha_valida > datetime.today():  # Si la fecha es futura
                         print("ERROR, La fecha no puede ser futura!")
+                    elif fecha_valida.year < 2000: #Si el año es menor a 2000
+                        print("ERROR, La fecha esta fuera del rango!")
                     else:
                         break  # Si la fecha es válida, rompe el bucle
                 except ValueError:  # Si la fecha no es válida, muestra un error
