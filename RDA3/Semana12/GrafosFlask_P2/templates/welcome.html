@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/joacobrm/css/estilos.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='joacobrm/img/favicon.ico') }}" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+    <title>Práctica</title>
+</head>
+<body class="main_body">
+    <nav class="navbar navbar-expand navbar-dark bg-primary w-100" style="background: linear-gradient(90deg, #fe310d 0%, #a2ff00 100%);">
+        <div class="container-fluid">
+            <!-- ...existing code... -->
+            <span id="user-mention" style="color:rgb(255, 255, 255); cursor:pointer;">@joacobrm</span>
+
+            <div id="user-popup" style="display:none; position:absolute; background:#fff; border:1px solid #ccc; padding:10px; z-index:100; color:white; background:#000000;">
+                <strong>JoacoBRM</strong><br>
+                <img src="{{ url_for('static', filename='/joacobrm/img/logo_jb.jpeg')}}" alt="JoacoBRM" class="img-fluid" style="width:100px; height:auto; margin-top: 5px; "><br>
+                Nombre: Joaquín Bermeo<br>
+                Email: jbrm2601@gmail.com<br>
+                Desarrollador full stack.<br>
+                Mi GitHub: <a href="https://github.com/JoacoBRM" target="_blank">Github</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="contenedor flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+        <img src="{{ url_for('static', filename='/joacobrm/img/grafo_main.png')}}" class="img-main" alt="Ejemplo Grafo">
+        <h1 class="welcome_h1">Grafos con Flask</h1> 
+        <button id="btn-abrir" class="glow-on-hover">Haz clic aquí</button>
+    </main>
+
+    <footer>Realizado por: Joaquín Bermeo</footer>
+    <script src="{{ url_for('static', filename='/joacobrm/js/scripts.js') }}"></script>
+</body>
+</html>

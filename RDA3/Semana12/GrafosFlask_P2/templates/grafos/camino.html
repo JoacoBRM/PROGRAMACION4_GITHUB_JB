@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Calcular Camino Óptimo{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+     <h2 class="mb-4 text-success text-center">Resultado del camino óptimo: Ibarra → Loja</h2>
+
+    {% if resultado.camino %}
+        <p><strong>Ruta:</strong> {{ resultado.camino | join(" → ") }}</p>
+        <p><strong>Costo total:</strong> ${{ resultado.costo }}</p>
+        {% if resultado.valido %}
+            <p style="color: green;"><strong>✅ El camino incluye una ciudad costera.</strong></p>
+        {% else %}
+            <p style="color: red;"><strong>❌ El camino NO pasa por ciudad costera.</strong></p>
+        {% endif %}
+    {% else %}
+        <p><strong>No se encontró un camino entre Ibarra y Loja.</strong></p>
+    {% endif %}
+    <div class="text-center">
+        <img src="{{ url_for('grafos.grafo_imagen') }}" alt="Grafo de ciudades" class="img-fluid" style="width:700px; height:auto; margin-top: 5px;" />
+    </div>
+</div>
+{% endblock %}

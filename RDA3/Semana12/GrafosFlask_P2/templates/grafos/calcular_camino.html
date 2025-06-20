@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Formulario{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+  <h2 class="mb-4 text-success text-center">Buscar camino más económico</h2>
+  <form method="post" class="row g-4 justify-content-center">
+    <div class="col-12 col-md-4 d-flex flex-column align-items-center">
+      <label for="origen" class="titulo-ciudad text-center">🌍 Ciudad de origen</label>
+      <select name="origen" id="origen" class="form-select form-select-lg form-select-custom mb-3" required>
+        {% for ciudad in ciudades %}
+          <option value="{{ ciudad }}"
+            {% if request.form.origen == ciudad %}selected{% endif %}>
+            {{ ciudad }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-12 col-md-4 d-flex flex-column align-items-center">
+      <label for="destino" class="titulo-ciudad text-center">📍 Ciudad de destino</label>
+      <select name="destino" id="destino" class="form-select form-select-lg form-select-custom mb-3" required>
+        {% for ciudad in ciudades %}
+          <option value="{{ ciudad }}"
+            {% if request.form.destino == ciudad %}selected{% endif %}>
+            {{ ciudad }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-12 text-center">
+      <button type="submit" class="btn btn-success btn-lg px-5 mt-3 shadow-sm">Calcular</button>
+    </div>
+  </form>
+</div>
+
+
+{% if resultado %}
+    <h3>Resultado</h3>
+    <p><strong>Ruta:</strong> {{ resultado.camino | join(" → ") }}</p>
+    <p><strong>Costo total:</strong> ${{ resultado.costo }}</p>
+    {% if resultado.valido %}
+        <p style="color: green;"><strong>✅ El camino incluye una ciudad costera.</strong></p>
+    {% else %}
+        <p style="color: red;"><strong>❌ El camino NO pasa por ciudad costera.</strong></p>
+    {% endif %}
+    {% if resultado.camino %}
+        <div class="text-center">
+            <img src="{{ url_for('grafos.grafo_imagen_camino', **{'camino': resultado.camino}) }}"
+                 alt="Grafo con camino resaltado"
+                 class="img-fluid"
+                 style="width:450px; height:auto; margin-top: 5px;"/>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <img src="{{ url_for('grafos.grafo_imagen') }}"
+                 alt="Grafo de ciudades"
+                 class="img-fluid"
+                 style="width:450px; height:auto; margin-top: 5px;"/>
+        </div>
+    {% endif %}
+{% else %}
+    <div class="text-center">
+        <img src="{{ url_for('grafos.grafo_imagen') }}"
+             alt="Grafo de ciudades"
+             class="img-fluid"
+             style="width:570px; height:auto; margin-top: 5px;"/>
+    </div>
+{% endif %}
+
+<p><a href="{{ url_for('grafos.ver_camino') }}">Ruta fija Ibarra → Loja</a></p>
+
+
+{% endblock %}
